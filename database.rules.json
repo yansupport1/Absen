@@ -1,0 +1,43 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      ".read": true,
+      "$uid": {
+        ".write": true,
+        ".validate": "newData.child('password').val() == null && newData.child('username').isString()"
+      }
+    },
+    "usernames": {
+      ".read": true,
+      "$username": { ".write": true }
+    },
+    "credentials": {
+      ".read": true,
+      "$username": {
+        ".write": true,
+        ".validate": "newData.child('uid').isString() && newData.child('passwordHash').isString()"
+      }
+    },
+    "classes": {
+      ".read": true,
+      "$classId": { ".write": true }
+    },
+    "qrSessions": {
+      ".read": true,
+      "$classId": { ".write": true }
+    },
+    "attendance": {
+      ".read": true,
+      "$date": {
+        "$classId": {
+          "$uid": {
+            ".write": true,
+            ".validate": "newData.child('uid').val() == $uid && newData.child('status').val() == 'HADIR' && newData.child('date').val() == $date"
+          }
+        }
+      }
+    }
+  }
+}
